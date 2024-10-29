@@ -158,10 +158,11 @@ public class RunningActivity extends Activity implements LocationSource, AMapLoc
                                     String date1=year+"年"+month+"月"+day+"日";
                                     String date2=hour+"时"+minute+"分"+second+"秒";
 
-                                    Date elapsedTimeDate = new Date(recordingTime);
-                                    // 如果你需要以HH:MM:SS格式显示
-                                    SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-                                    String elapsedTimeFormatted = formatter.format(elapsedTimeDate);
+                                    long elapsedSeconds = recordingTime / 1000; // 将毫秒转换为秒
+                                    long hours = elapsedSeconds / 3600;
+                                    long minutes = (elapsedSeconds % 3600) / 60;
+                                    long seconds = elapsedSeconds % 60;
+                                    String elapsedTimeFormatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
 
                                     SQLiteDatabase db = dbHelper.getWritableDatabase();
                                     ContentValues values = new ContentValues();
@@ -245,11 +246,12 @@ public class RunningActivity extends Activity implements LocationSource, AMapLoc
                                 String date1=year+"年"+month+"月"+day+"日";
                                 String date2=hour+"时"+minute+"分"+second+"秒";
 
-                                Date elapsedTimeDate = new Date(recordingTime);
-                                // 如果你需要以HH:MM:SS格式显示
-                                SimpleDateFormat formatter = new SimpleDateFormat("HH:mm:ss");
-                                String elapsedTimeFormatted = formatter.format(elapsedTimeDate);
-
+                                long elapsedSeconds = recordingTime / 1000; // 将毫秒转换为秒
+                                long hours = elapsedSeconds / 3600;
+                                long minutes = (elapsedSeconds % 3600) / 60;
+                                long seconds = elapsedSeconds % 60;
+                                String elapsedTimeFormatted = String.format("%02d:%02d:%02d", hours, minutes, seconds);
+                                
                                 SQLiteDatabase db = dbHelper.getWritableDatabase();
                                 ContentValues values = new ContentValues();
                                 values.put("time", elapsedTimeFormatted);
